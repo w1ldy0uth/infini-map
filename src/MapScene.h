@@ -2,6 +2,8 @@
 #define MAPSCENE_H
 
 #include <QGraphicsScene>
+#include <QImage>
+#include <QPixmap>
 
 class MapScene : public QGraphicsScene
 {
@@ -9,11 +11,13 @@ class MapScene : public QGraphicsScene
 
 public:
     MapScene(QObject* parent = nullptr);
-    void paintTerrain();
+    void generateTerrain();
 
 private:
     int width  = 2048;
     int height = 2048;
+    QImage terrainImage;
+    QPixmap terrainPixmap;
 };
 
 #endif
