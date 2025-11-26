@@ -10,6 +10,7 @@ add_executable(InfiniMap
     src/main.cpp
     src/MapView.h src/MapView.cpp
     src/MapScene.h src/MapScene.cpp
+    src/Noise.h src/Noise.cpp
 )
 
 target_include_directories(InfiniMap PRIVATE src)
