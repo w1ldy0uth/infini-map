@@ -11,12 +11,14 @@ set(SOURCES
     src/core/MapView.cpp
     src/core/MapScene.cpp
     src/terrain/Noise.cpp
+    src/terrain/BiomeColor.cpp
 )
 
 set(HEADERS
     src/core/MapView.h
     src/core/MapScene.h
     src/terrain/Noise.h
+    src/terrain/BiomeColor.h
 )
 
 add_executable(InfiniMap ${SOURCES} ${HEADERS})
