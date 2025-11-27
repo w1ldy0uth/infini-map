@@ -1,5 +1,6 @@
 #ifndef MAPSCENE_H
 #define MAPSCENE_H
+#pragma once
 
 #include <QGraphicsScene>
 #include <QImage>

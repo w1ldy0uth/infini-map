@@ -1,6 +1,6 @@
 #include <QApplication>
-#include "MapView.h"
-#include "MapScene.h"
+#include "core/MapView.h"
+#include "core/MapScene.h"
 
 int main(int argc, char* argv[])
 {
