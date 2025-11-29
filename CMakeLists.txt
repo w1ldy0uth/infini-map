@@ -12,6 +12,7 @@ set(SOURCES
     src/core/MapScene.cpp
     src/terrain/Noise.cpp
     src/terrain/BiomeColor.cpp
+    src/utils/ImageUtils.cpp
 )
 
 set(HEADERS
@@ -19,6 +20,7 @@ set(HEADERS
     src/core/MapScene.h
     src/terrain/Noise.h
     src/terrain/BiomeColor.h
+    src/utils/ImageUtils.h
 )
 
 add_executable(InfiniMap ${SOURCES} ${HEADERS})
@@ -27,6 +29,7 @@ target_include_directories(InfiniMap PRIVATE
     src
     src/core
     src/terrain
+    src/utils
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
