@@ -1,54 +1,54 @@
 #include "BiomeColor.h"
+#include <QtMath>
 
-// Map height [0..1] to biome color
 QRgb BiomeColor::getColor(float height)
 {
-    // Clamped height
-    if (height < 0.0f) height = 0.0f;
-    if (height > 1.0f) height = 1.0f;
-
-    QRgb color;
+    height = qBound(0.0f, height, 1.0f);
 
     if (height < 0.30f) {
-        // Water — deep to shallow
+        // Deep Ocean to Shallow Sea
         float t = height / 0.30f;
         int r = 0;
-        int g = 64 + static_cast<int>(t * 64);      // 64 → 128
-        int b = 128 + static_cast<int>(t * 127);    // 128 → 255
-        color = qRgb(r, g, b);
+        int g = 20 + static_cast<int>(t * 40);
+        int b = 80 + static_cast<int>(t * 100);
+        return qRgb(r, g, b);
+    }
+    else if (height < 0.32f) {
+        // Sandy Beach
+        float t = (height - 0.30f) / 0.02f;
+        int r = 200 + static_cast<int>(t * 55);
+        int g = 190 + static_cast<int>(t * 40);
+        int b = 100 - static_cast<int>(t * 80);
+        return qRgb(r, g, b);
     }
     else if (height < 0.50f) {
-        // Sandy beach / coast
-        float t = (height - 0.30f) / 0.20f;
-        int r = 240 + static_cast<int>(t * 15);
-        int g = 230 + static_cast<int>(t * 25);
-        int b = 160 - static_cast<int>(t * 60);
-        color = qRgb(r, g, b);
+        // Plains to Grassland
+        float t = (height - 0.32f) / 0.18f;
+        int r = 100 + static_cast<int>(t * 60);
+        int g = 150 + static_cast<int>(t * 70);
+        int b = 50 + static_cast<int>(t * 30);
+        return qRgb(r, g, b);
     }
-    else if (height < 0.70f) {
-        // Plains / forests
-        float t = (height - 0.50f) / 0.20f;
+    else if (height < 0.65f) {
+        // Forest (darker green)
+        float t = (height - 0.50f) / 0.15f;
         int r = 30 + static_cast<int>(t * 40);
-        int g = 100 + static_cast<int>(t * 75);
-        int b = 30 + static_cast<int>(t * 40);
-        color = qRgb(r, g, b);
+        int g = 90 + static_cast<int>(t * 60);
+        int b = 30 + static_cast<int>(t * 30);
+        return qRgb(r, g, b);
     }
-    else if (height < 0.90f) {
-        // Mountains — rocky browns
-        float t = (height - 0.70f) / 0.20f;
-        int r = 90 + static_cast<int>(t * 40);
-        int g = 80 + static_cast<int>(t * 30);
-        int b = 70 + static_cast<int>(t * 30);
-        color = qRgb(r, g, b);
+    else if (height < 0.80f) {
+        // Mountains (rocky, desaturated)
+        float t = (height - 0.65f) / 0.15f;
+        int r = 110 + static_cast<int>(t * 40);
+        int g = 105 + static_cast<int>(t * 35);
+        int b = 100 + static_cast<int>(t * 30);
+        return qRgb(r, g, b);
     }
     else {
-        // Snow — white with gray hint
-        float t = (height - 0.90f) / 0.10f;
-        int base = 230;
-        int variation = static_cast<int>(t * 25);
-        int val = base + variation;
-        color = qRgb(val, val, val);
+        // Snow (bright white with soft gray)
+        float t = (height - 0.80f) / 0.20f;
+        int val = 230 + static_cast<int>(t * 25);
+        return qRgb(val, val, val);
     }
-
-    return color;
 }

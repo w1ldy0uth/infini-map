@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
     view->setScene(scene);
 
     view->setWindowTitle("InfiniMap");
-    view->resize(1024, 768);
+    view->resize(1600, 900);
     view->show();
 
     return app.exec();

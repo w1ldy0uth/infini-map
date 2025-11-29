@@ -1,14 +1,21 @@
 #include "MapView.h"
 #include <QWheelEvent>
+#include <QPainter>
 
 MapView::MapView(QWidget* parent)
     : QGraphicsView(parent)
 {
-    setRenderHint(QPainter::RenderHint::Antialiasing, false);
-    setDragMode(QGraphicsView::ScrollHandDrag);
-    setOptimizationFlag(QGraphicsView::DontAdjustForAntialiasing, true);
-    setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
+    setRenderHint(QPainter::Antialiasing, true);
+    setRenderHint(QPainter::TextAntialiasing, true);
+    setRenderHint(QPainter::SmoothPixmapTransform, true);
+
     setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+    setResizeAnchor(QGraphicsView::AnchorUnderMouse);
+    setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
+    setDragMode(QGraphicsView::ScrollHandDrag);
+
+    setOptimizationFlag(QGraphicsView::DontSavePainterState, true);
+    setOptimizationFlag(QGraphicsView::IndirectPainting, true);
 }
 
 void MapView::wheelEvent(QWheelEvent* event)
