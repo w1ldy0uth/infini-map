@@ -1,8 +1,9 @@
+#include "core/MapScene.h"
+#include "terrain/Noise.h"
+#include "terrain/BiomeColor.h"
+#include "utils/ImageUtils.h"
 #include <QGraphicsPixmapItem>
-#include "MapScene.h"
-#include "Noise.h"
-#include "BiomeColor.h"
-#include "ImageUtils.h"
+#include <QDebug>
 
 MapScene::MapScene(QObject* parent)
     : QGraphicsScene(parent)
@@ -19,16 +20,16 @@ void MapScene::generateTerrain()
         return;
     }
 
-    const float noiseMin = 0.272f;
-    const float noiseMax = 0.714f;
-    const float noiseRange = noiseMax - noiseMin;
-    const float baseScale = 0.55f;
+    constexpr float noiseMin = 0.272f;
+    constexpr float noiseMax = 0.714f;
+    constexpr float noiseRange = noiseMax - noiseMin;
+    constexpr float baseScale = 0.55f;
 
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
-            float nx = x;
-            float ny = y;
-            float noise = Noise::normalizedValue2D(nx * baseScale, ny * baseScale, 1234);
+            float nx = x * baseScale;
+            float ny = y * baseScale;
+            float noise = Noise::normalizedValue2D(nx, ny, 1234);
 
             float value = (noise - noiseMin) / noiseRange;
             value = qBound(0.0f, value, 1.0f);

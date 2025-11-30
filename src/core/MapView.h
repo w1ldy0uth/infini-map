@@ -4,6 +4,7 @@
 
 #include <QGraphicsView>
 
+// View with smooth zoom for terrain map
 class MapView : public QGraphicsView
 {
     Q_OBJECT

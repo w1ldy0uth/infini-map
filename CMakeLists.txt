@@ -27,13 +27,10 @@ add_executable(InfiniMap ${SOURCES} ${HEADERS})
 
 target_include_directories(InfiniMap PRIVATE 
     src
-    src/core
-    src/terrain
-    src/utils
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-target_link_libraries(InfiniMap Qt6::Widgets Qt6::Gui Qt6::Core)
+target_link_libraries(InfiniMap PRIVATE Qt6::Widgets Qt6::Gui Qt6::Core)
 
 set_target_properties(InfiniMap PROPERTIES
     AUTOMOC ON

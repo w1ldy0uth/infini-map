@@ -1,6 +1,8 @@
 #ifndef NOISE_H
 #define NOISE_H
+#pragma once
 
+// 2D noise generator with fBm
 class Noise
 {
 public:

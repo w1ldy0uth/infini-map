@@ -3,9 +3,8 @@
 #pragma once
 
 #include <QGraphicsScene>
-#include <QImage>
-#include <QPixmap>
 
+// Terrain map scene with procedural generation
 class MapScene : public QGraphicsScene
 {
     Q_OBJECT
@@ -15,8 +14,9 @@ public:
     void generateTerrain();
 
 private:
-    int width  = 2048;
-    int height = 2048;
+    static constexpr int width  = 2048;
+    static constexpr int height = 2048;
+
     QImage terrainImage;
     QPixmap terrainPixmap;
 };
