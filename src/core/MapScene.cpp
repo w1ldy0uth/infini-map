@@ -1,7 +1,8 @@
-#include "core/MapScene.h"
+#include "MapScene.h"
 #include "terrain/Noise.h"
 #include "terrain/BiomeColor.h"
 #include "utils/ImageUtils.h"
+#include "utils/Random.h"
 #include <QGraphicsPixmapItem>
 #include <QDebug>
 
@@ -9,6 +10,7 @@ MapScene::MapScene(QObject* parent)
     : QGraphicsScene(parent)
 {
     setSceneRect(0, 0, width, height);
+    realSeed = generateRandomSeed();
     generateTerrain();
 }
 
@@ -20,18 +22,15 @@ void MapScene::generateTerrain()
         return;
     }
 
-    constexpr float noiseMin = 0.272f;
-    constexpr float noiseMax = 0.714f;
-    constexpr float noiseRange = noiseMax - noiseMin;
-    constexpr float baseScale = 0.55f;
+    constexpr float noiseRange = Config::NoiseCeil - Config::NoiseFloor;
 
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
-            float nx = x * baseScale;
-            float ny = y * baseScale;
-            float noise = Noise::normalizedValue2D(nx, ny, 1234);
+            float nx = x * Config::NoiseScale;
+            float ny = y * Config::NoiseScale;
+            float noise = Noise::normalizedValue2D(nx, ny, realSeed);
 
-            float value = (noise - noiseMin) / noiseRange;
+            float value = (noise - Config::NoiseFloor) / noiseRange;
             value = qBound(0.0f, value, 1.0f);
 
             QRgb color = BiomeColor::getColor(value);
@@ -39,7 +38,7 @@ void MapScene::generateTerrain()
         }
     }
 
-    terrainImage = ImageUtils::gaussianBlur(terrainImage, 1);
+    terrainImage = ImageUtils::gaussianBlur(terrainImage, Config::BlurRadius);
     // terrainImage.fill(qRgb(0, 128, 255)); solid ocean (for tests)
 
     terrainPixmap = QPixmap::fromImage(terrainImage);

@@ -1,4 +1,5 @@
 #include "Noise.h"
+#include "config/Config.h"
 #include <cmath>
 
 // Fast 32-bit hash (Wang)
@@ -66,13 +67,12 @@ float Noise::normalizedValue2D(float x, float y, int seed)
     float maxAmplitude = 0.0f;
     float amplitude = 1.0f;
     float frequency = 0.002f;
-    const int octaves = 5;
 
-    for (int i = 0; i < octaves; ++i) {
+    for (int i = 0; i < Config::NoiseOctaves; ++i) {
         total += value2D(x, y, frequency, seed + i) * amplitude;
         maxAmplitude += amplitude;
-        amplitude *= 0.6f;
-        frequency *= 2.0f;
+        amplitude *= Config::NoisePersistence;
+        frequency *= Config::NoiseLacunarity;
     }
 
     return total / maxAmplitude;

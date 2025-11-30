@@ -2,6 +2,7 @@
 #define MAPSCENE_H
 #pragma once
 
+#include <config/Config.h>
 #include <QGraphicsScene>
 
 // Terrain map scene with procedural generation
@@ -12,10 +13,12 @@ class MapScene : public QGraphicsScene
 public:
     MapScene(QObject* parent = nullptr);
     void generateTerrain();
+    int currentSeed() const;
 
 private:
-    static constexpr int width  = 2048;
-    static constexpr int height = 2048;
+    int realSeed;
+    static constexpr int width  = Config::MapWidth;
+    static constexpr int height = Config::MapHeight;
 
     QImage terrainImage;
     QPixmap terrainPixmap;
