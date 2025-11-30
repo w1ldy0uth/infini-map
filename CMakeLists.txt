@@ -13,6 +13,7 @@ set(SOURCES
     src/terrain/Noise.cpp
     src/terrain/BiomeColor.cpp
     src/utils/ImageUtils.cpp
+    src/utils/Random.cpp
 )
 
 set(HEADERS
@@ -21,6 +22,7 @@ set(HEADERS
     src/terrain/Noise.h
     src/terrain/BiomeColor.h
     src/utils/ImageUtils.h
+    src/utils/Random.h
 )
 
 add_executable(InfiniMap ${SOURCES} ${HEADERS})
