@@ -1,8 +1,4 @@
-// src/util/Random.h
-#ifndef RANDOM_H
-#define RANDOM_H
 #pragma once
 
+// Random seed generation utilities
 int generateRandomSeed();
-
-#endif

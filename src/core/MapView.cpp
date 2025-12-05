@@ -1,4 +1,5 @@
 #include "MapView.h"
+#include "config/Config.h"
 #include <QWheelEvent>
 #include <QPainter>
 
@@ -20,23 +21,35 @@ MapView::MapView(QWidget* parent)
 
 void MapView::wheelEvent(QWheelEvent* event)
 {
-    const double zoomInFactor = 1.25;
-    const double zoomOutFactor = 1 / zoomInFactor;
-
     if (event->angleDelta().y() > 0) {
-        zoom(zoomInFactor);
+        zoom(Config::ZoomInFactor);
     } else {
-        zoom(zoomOutFactor);
+        zoom(Config::ZoomOutFactor);
     }
 }
 
 void MapView::zoom(double factor)
 {
-    const double currentScale = transform().m11();
-    const double minScale = 0.1;
-    const double maxScale = 10.0;
+    // Validate zoom factor
+    if (factor <= 0.0) {
+        qWarning() << "Invalid zoom factor (must be positive):" << factor;
+        return;
+    }
 
-    if (currentScale * factor >= minScale && currentScale * factor <= maxScale) {
+    if (factor < 0.1 || factor > 10.0) {
+        qWarning() << "Zoom factor outside reasonable range [0.1, 10.0]:" << factor;
+        // Allow but warn
+    }
+
+    const double currentScale = transform().m11();
+    const double newScale = currentScale * factor;
+
+    // Bounds checking with floating point tolerance
+    if (newScale >= Config::MinZoomScale - 1e-6 && newScale <= Config::MaxZoomScale + 1e-6) {
         scale(factor, factor);
+    } else {
+        qDebug() << "Zoom request out of bounds - current:" << currentScale
+                 << "requested:" << newScale
+                 << "allowed: [" << Config::MinZoomScale << "," << Config::MaxZoomScale << "]";
     }
 }

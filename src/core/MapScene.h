@@ -1,5 +1,3 @@
-#ifndef MAPSCENE_H
-#define MAPSCENE_H
 #pragma once
 
 #include <config/Config.h>
@@ -11,17 +9,14 @@ class MapScene : public QGraphicsScene
     Q_OBJECT
 
 public:
-    MapScene(QObject* parent = nullptr);
+    MapScene(QObject *parent = nullptr);
     void generateTerrain();
-    int currentSeed() const;
 
 private:
     int realSeed;
-    static constexpr int width  = Config::MapWidth;
+    static constexpr int width = Config::MapWidth;
     static constexpr int height = Config::MapHeight;
 
     QImage terrainImage;
     QPixmap terrainPixmap;
 };
-
-#endif

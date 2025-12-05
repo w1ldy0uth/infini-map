@@ -1,5 +1,3 @@
-#ifndef MAPVIEW_H
-#define MAPVIEW_H
 #pragma once
 
 #include <QGraphicsView>
@@ -18,5 +16,3 @@ protected:
 private:
     void zoom(double factor);
 };
-
-#endif

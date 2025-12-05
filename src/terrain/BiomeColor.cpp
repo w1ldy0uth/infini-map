@@ -4,7 +4,14 @@
 
 QRgb BiomeColor::getColor(float height)
 {
+    // Validate and clamp height to [0, 1] range
+    const float originalHeight = height;
     height = qBound(0.0f, height, 1.0f);
+
+    // Warn if input was significantly out of bounds
+    if (qAbs(originalHeight - height) > 0.01f) {
+        qWarning() << "Biome color height clamped from" << originalHeight << "to" << height;
+    }
 
     if (height < Config::SeaLevel) {
         // Ocean

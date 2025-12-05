@@ -1,6 +1,6 @@
-#ifndef NOISE_H
-#define NOISE_H
 #pragma once
+
+#include <QDebug>
 
 // 2D noise generator with fBm
 class Noise
@@ -11,5 +11,3 @@ public:
 private:
     static float value2D(float x, float y, float frequency, int seed);
 };
-
-#endif
